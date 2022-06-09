@@ -18,6 +18,21 @@ void fila_insere_l(fila_t*f,int dado){
 	f->fim = n;
 }
 
+int fila_retira_l(fila_t*f){
+	lista_t *t;
+	int v;
+	if(fila_vazia_l(f)){
+		printf("Fila vazia!");
+		exit(1);
+	}
+	t = f->ini;
+	v = t->info;
+	f->ini = t->prox;
+	if(f->ini==NULL) f->fim = NULL;
+	free(t);
+	return v;
+}
+
 int fila_vazia_l(fila_t*f){
 	return (f->ini == NULL);
 }
@@ -45,7 +60,7 @@ void pilha_l_push(pilha_t *p, int dado){
 	p->prim=l;
 }
 
-char pilha_l_pop(pilha_t *p){
+int pilha_l_pop(pilha_t *p){
 	lista_t *l;
 	int n;
 	if(pilha_l_vazia(p)){
