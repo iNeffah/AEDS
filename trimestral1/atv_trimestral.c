@@ -10,38 +10,24 @@
 typedef uint8_t bool_t;
 
 int main(int argc, char **argv) {
-	char nome_f[30];
+    int dado, comando, n;
 	FILE *f;
-	int n, i;
-	while (TRUE) {
-		printf("Coloque o caminho do arquivo .txt: ");
-		scanf("%s", nome_f);
-		getchar();
-		f = fopen(nome_f, "r");
-		if (f == NULL) {
-			printf ("Erro ao abrir o arquivo!\n");
-			continue;
-		}
-		break;
-	}
-	while (fscanf(f, "%d", &n) != EOF) {
-        if ((n < 1) || (n > 1000)) {
-            printf("Numero de comandos deve ser entre 1 e 1000!\n");
-            return 0;
-        }
-		int dado, comando;
-		bool_t isPilha, isFila, isFilaP;
-		fila_t* fila = fila_cria_l();
-		lista_t* filaP = lst_cria();
-		pilha_t* pilha = pilha_l_cria();
-		isPilha = isFila = isFilaP = TRUE;
+    bool_t isPilha, isFila, isFilaP;
+	fila_t* fila = fila_cria_l();
+	lista_t* filaP = lst_cria();
+	pilha_t* pilha = pilha_l_cria();
+	isPilha = isFila = isFilaP = TRUE;
 
-        for (i=0; i<n; i++) {
+	f = fopen("entrada.txt", "r");
+	if (f == NULL) {
+		printf ("Erro ao abrir o arquivo!\n");
+	}
+
+	while (!feof(f)) {
+        fscanf(f, "%d", &n);
+        for (int i=0; i<n; i++) {
             fscanf(f, "%d %d", &comando, &dado);
-            if ((dado < 0) || (dado > 100) || ((comando != 1) && (comando != 2))) {
-                printf("Numeros do codigo ou dos dados invalidos! Dados devem ser de 0 a 100 e codigos 1 ou 2.\n");
-                return 0;
-            }
+            printf("%d %d\n", comando, dado);
             if (comando == 1) {
                 pilha_l_push(pilha, dado);
                 fila_insere_l(fila, dado);
@@ -49,15 +35,22 @@ int main(int argc, char **argv) {
             } else {
                 if (pilha->prim->info != dado) {
                     isPilha = FALSE;
-                } else {pilha_l_pop(pilha);}
+                } else {
+                    printf("a");
+                    pilha_l_pop(pilha);
+                }
 
                 if (fila->ini->info != dado) {
                     isFila = FALSE;
-                } else {fila_retira_l(fila);}
+                } else {
+                    fila_retira_l(fila);
+                }
 
                 if (filaP->info != dado){
                     isFilaP = FALSE;
-                } else {lst_retira(filaP, dado);}
+                } else {
+                    lst_retira(filaP, dado);
+                }
             }
         }
 
@@ -77,7 +70,7 @@ int main(int argc, char **argv) {
             printf("priority queue\n");
         }
         fila_libera_l(fila);
-        fila_libera_l(filaP);
+        lst_libera(filaP);
         pilha_l_libera(pilha);
 	}
     fclose(f);

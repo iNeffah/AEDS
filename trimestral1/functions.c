@@ -92,6 +92,15 @@ lista_t *lst_retira(lista_t *l, int dado){
 	return l;
 }
 
+void lst_libera(lista_t *l){
+	lista_t *p=l;
+	while(p!=NULL){
+		lista_t *t=p->prox;
+		free(p);
+		p=t;
+	}
+}
+
 pilha_t *pilha_l_cria(){
 	pilha_t *p=(pilha_t *)malloc(sizeof(pilha_t));
 	p->prim=NULL;
