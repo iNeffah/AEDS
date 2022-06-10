@@ -76,10 +76,10 @@ int main(int argc, char **argv) {
         } else if (filaP) {
             printf("priority queue\n");
         }
-        fclose(f);
         fila_libera_l(fila);
         fila_libera_l(filaP);
         pilha_l_libera(pilha);
 	}
+    fclose(f);
     return SUCESSO;
 }

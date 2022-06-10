@@ -50,10 +50,10 @@ lista_t* lst_cria(){
 	return NULL;
 }
 
-lista_t *lst_insere_ordenado(lista_t *l, int v){
+lista_t *lst_insere_ordenado(lista_t *l, int dado){
 	lista_t *novo;
 	novo=(lista_t *)malloc(sizeof(lista_t));
-	novo->info=dadp;
+	novo->info=dado;
 	lista_t *ant=NULL;
 	lista_t *p=l;
 	while(p!=NULL && p->info<dado){
