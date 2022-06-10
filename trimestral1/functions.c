@@ -10,7 +10,6 @@ fila_t*fila_cria_l(){
 
 void fila_insere_l(fila_t*f,int dado){
 	lista_t *n = (lista_t *) malloc(sizeof(lista_t));
-	int i;
 	n->info = dado;
 	n->prox = NULL;
 	if(f->fim != NULL) f->fim->prox = n;
@@ -45,6 +44,52 @@ void fila_libera_l(fila_t*f){
 		q = t;
 	}
 	free(f);
+}
+
+lista_t* lst_cria(){
+	return NULL;
+}
+
+lista_t *lst_insere_ordenado(lista_t *l, int v){
+	lista_t *novo;
+	novo=(lista_t *)malloc(sizeof(lista_t));
+	novo->info=dadp;
+	lista_t *ant=NULL;
+	lista_t *p=l;
+	while(p!=NULL && p->info<dado){
+		ant=p;
+		p=p->prox;
+	}
+	if(ant==NULL){
+		novo->prox=l;
+		return novo;
+	}
+	else{
+		ant->prox=novo;
+		novo->prox=p;
+		return l;
+	}
+}
+
+lista_t *lst_retira(lista_t *l, int dado){
+	lista_t *p=l;
+	lista_t *ant=NULL;
+	while(p!=NULL && p->info!=dado){
+		ant=p;
+		p=p->prox;
+	}
+	if(p==NULL){
+		printf("Elemento não encontrado\n");
+		return l;
+	}
+	if(ant==NULL){
+		l=p->prox;
+	}
+	else{
+		ant->prox=p->prox;
+	}
+	free(p);
+	return l;
 }
 
 pilha_t *pilha_l_cria(){

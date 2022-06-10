@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 		int dado, comando;
 		bool_t isPilha, isFila, isFilaP;
 		fila_t* fila = fila_cria_l();
-		fila_t* filaP = fila_cria_l();
+		lista_t* filaP = lst_cria();
 		pilha_t* pilha = pilha_l_cria();
 		isPilha = isFila = isFilaP = TRUE;
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
             if (comando == 1) {
                 pilha_l_push(pilha, dado);
                 fila_insere_l(fila, dado);
-                fila_insere_l(filaP, dado);
+                lst_insere_ordenado(filaP, dado);
             } else {
                 if (pilha->prim->info != dado) {
                     isPilha = FALSE;
@@ -55,9 +55,9 @@ int main(int argc, char **argv) {
                     isFila = FALSE;
                 } else {fila_retira_l(fila);}
 
-                if (filaP->ini->info != dado){
+                if (filaP->info != dado){
                     isFilaP = FALSE;
-                } else {fila_retira_l(filaP);}
+                } else {lst_retira(filaP, dado);}
             }
         }
 
@@ -76,6 +76,10 @@ int main(int argc, char **argv) {
         } else if (filaP) {
             printf("priority queue\n");
         }
+        fclose(f);
+        fila_libera_l(fila);
+        fila_libera_l(filaP);
+        pilha_l_libera(pilha);
 	}
     return SUCESSO;
 }

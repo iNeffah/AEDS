@@ -18,6 +18,10 @@ int fila_retira_l(fila_t *f);
 int fila_vazia_l(fila_t *f);
 void fila_libera_l(fila_t *f);
 
+lista_t *lst_insere_ordenado(lista_t *l, int dado);
+lista_t *lst_cria();
+lista_t *lst_retira(lista_t *l, int dado){
+
 pilha_t *pilha_l_cria();
 void pilha_l_push(pilha_t *p, int dado);
 int pilha_l_pop(pilha_t *p);
