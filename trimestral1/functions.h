@@ -15,10 +15,11 @@ typedef struct pilha{
 fila_t *fila_cria_l();
 void fila_insere_l(fila_t *f, int dado);
 int fila_retira_l(fila_t *f);
+int lst_maior_elemento(lista_t *l);
 int fila_vazia_l(fila_t *f);
 void fila_libera_l(fila_t *f);
 
-lista_t *lst_insere_ordenado(lista_t *l, int dado);
+lista_t *lst_insere(lista_t *l, int dado);
 lista_t *lst_cria();
 lista_t *lst_retira(lista_t *l, int dado);
 void lst_libera(lista_t *l);

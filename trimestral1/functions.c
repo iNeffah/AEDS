@@ -50,25 +50,11 @@ lista_t* lst_cria(){
 	return NULL;
 }
 
-lista_t *lst_insere_ordenado(lista_t *l, int dado){
-	lista_t *novo;
-	novo=(lista_t *)malloc(sizeof(lista_t));
+lista_t *lst_insere(lista_t *l, int dado){
+	lista_t *novo=(lista_t *)malloc(sizeof(lista_t));
 	novo->info=dado;
-	lista_t *ant=NULL;
-	lista_t *p=l;
-	while(p!=NULL && p->info<dado){
-		ant=p;
-		p=p->prox;
-	}
-	if(ant==NULL){
-		novo->prox=l;
-		return novo;
-	}
-	else{
-		ant->prox=novo;
-		novo->prox=p;
-		return l;
-	}
+	novo->prox=l;
+	return novo;
 }
 
 lista_t *lst_retira(lista_t *l, int dado){
@@ -90,6 +76,17 @@ lista_t *lst_retira(lista_t *l, int dado){
 	}
 	free(p);
 	return l;
+}
+
+int lst_maior_elemento(lista_t *l) {
+    int maior = INT_MIN;
+
+    for (lista_t *i = l; i != NULL; i = i->prox) { 
+        if (i->info > maior) {
+            maior = i->info;
+        }
+    }
+    return maior;
 }
 
 void lst_libera(lista_t *l){
