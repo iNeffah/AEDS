@@ -72,24 +72,40 @@ int arv_conta_num(Arv *a, int num) {
     }
 }
 
-int* arv_elements(Arv *a, int* vet, int rep) {
-    if(arv_vazia(a)) {
-        return NULL;
+void arv_histograma(Arv *a, int *vet, int tamanho_vet) {
+    if (arv_vazia(a)) {
+        printf("arvore vazia");
     } else {
-        vet[rep] = a->info;
-        rep++;
-    }
-}
+        int contagem;
+        for (int i = 0; i < tamanho_vet; i++) {
 
-void arv_histograma(Arv *a) {
-    
+            for (int e = 0; e < tamanho_vet; e++) {
+
+                if ((vet[i] == vet[e]) && (e < i)) {
+                    break;
+
+                } else if (e == tamanho_vet - 1){               
+                    contagem = arv_conta_num(a, vet[i]);
+                    printf("%d|", vet[i]);
+                    for (int j = 0; j < contagem; j++) {
+                        printf("*");
+                    }
+                    printf("\n");
+                }
+            }
+                    
+        }
+    }
 }
 
 int main (int argc, char ** argv) {
     Arv *a = arv_criavazia();
+    int i, j;
+    
     a = arv_insere_ordenado(a, 3);
     a = arv_insere_ordenado(a, 2);
     a = arv_insere_ordenado(a, 5);
+    a = arv_insere_ordenado(a, 1);
     a = arv_insere_ordenado(a, 1);
 
     arv_imprime_preordem(a);
@@ -97,6 +113,9 @@ int main (int argc, char ** argv) {
     arv_imprime_posordem(a);
 
     printf("\nFolhas: %d\nNos com 1 filho: %d\nNos com 2 filhos: %d\n", arv_conta_folhas(a), arv_conta_nos1filho(a), arv_conta_nos2filho(a));
+
+    int vet[5] = {3, 2, 5, 1, 1};
+    arv_histograma(a, vet, sizeof(vet)/sizeof(vet[0]));
 
     arv_libera(a);
     return SUCESSO;
