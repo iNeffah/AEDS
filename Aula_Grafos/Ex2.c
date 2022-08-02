@@ -4,7 +4,7 @@
 #define SUCESSO 0
 
 void grau_vertices_l (Lista **lista, int n_vertices) {
-    int grau;
+    int grau = 0;
     Lista *l2;
     for(int i=0; i<n_vertices; i++){
         printf("c");
@@ -13,7 +13,6 @@ void grau_vertices_l (Lista **lista, int n_vertices) {
             printf("d");
         }
         printf("Grau vertice %d: %d\n", i, grau);
-        i++;
         grau = 0;
     }
 }
@@ -38,9 +37,15 @@ int main(int argc, char **argv) {
         for (j=0; j<n_adj; j++) {
             scanf("%d", &adj[j]);
             getchar();
-            lst_insere(lst_adj[i], adj[j]);
+            lst_adj[i] = lst_insere(lst_adj[i], adj[j]);
         }
     }
     grau_vertices_l(lst_adj, n_vertices);
+
+    for(j=0; j<n_vertices; j++) {
+        lst_libera(lst_adj[j]);
+    }
+    free(lst_adj);
+    free(adj);
     return SUCESSO;
 }
