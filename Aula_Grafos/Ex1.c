@@ -17,7 +17,7 @@ void grau_vertices_m (int ** matriz, int n_vertices) {
 }
 
 int main(int argc, char **argv) {
-    int **matriz_adj, n_vertices, *adj, n_adj, j;
+    int **matriz_adj, n_vertices, *adj, n_adj, j, i;
 
     printf("Quantidade de vertices do grafo: ");
     scanf("%d", &n_vertices);
@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     matriz_adj = (int**) malloc (n_vertices * sizeof(int*));
     adj = NULL;
 
-    for (int i=0; i<n_vertices; i++) {
+    for (i=0; i<n_vertices; i++) {
         printf("Quantidade de vertices adjacentes ao vertice %d: ", i);
         scanf("%d", &n_adj);
         getchar();
@@ -50,5 +50,11 @@ int main(int argc, char **argv) {
         }
     }
     grau_vertices_m(matriz_adj, n_vertices);
+    
+    for (i=0; i<n_vertices; i++) {
+        free(matriz_adj[i]);
+    }
+    free(matriz_adj);
+    free(adj);
     return SUCESSO;
 }

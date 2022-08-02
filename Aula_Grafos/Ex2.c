@@ -5,10 +5,12 @@
 
 void grau_vertices_l (Lista **lista, int n_vertices) {
     int grau;
-    Lista *l3;
+    Lista *l2;
     for(int i=0; i<n_vertices; i++){
-        for(l3 = lista[i]; l3 != NULL; l3=l3->prox) {
+        printf("c");
+        for (l2 = lista[i]; l2 != NULL; l2=l2->prox) {
             grau++;
+            printf("d");
         }
         printf("Grau vertice %d: %d\n", i, grau);
         i++;
@@ -26,11 +28,10 @@ int main(int argc, char **argv) {
     adj = NULL;
 
     for (int i=0; i<n_vertices; i++) {
-        lst_insere(lst_adj, i);
         printf("Quantidade de vertices adjacentes ao vertice %d: ", i);
         scanf("%d", &n_adj);
         getchar();
-        lst_adj[i] = (Lista*) malloc(n_adj * sizeof(Lista));
+        lst_adj[i] = lst_cria();
         adj = (int*) realloc(adj, n_adj * sizeof(int));
 
         printf("Insira os valores adjacentes ao vertice %d: ", i);
@@ -40,8 +41,6 @@ int main(int argc, char **argv) {
             lst_insere(lst_adj[i], adj[j]);
         }
     }
-    printf("a");
     grau_vertices_l(lst_adj, n_vertices);
-    printf("a");
     return SUCESSO;
 }
