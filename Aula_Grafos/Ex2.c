@@ -7,10 +7,8 @@ void grau_vertices_l (Lista **lista, int n_vertices) {
     int grau = 0;
     Lista *l2;
     for(int i=0; i<n_vertices; i++){
-        printf("c");
         for (l2 = lista[i]; l2 != NULL; l2=l2->prox) {
             grau++;
-            printf("d");
         }
         printf("Grau vertice %d: %d\n", i, grau);
         grau = 0;
