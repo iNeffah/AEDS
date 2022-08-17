@@ -10,9 +10,17 @@ struct filal{
 };
 typedef struct filal FilaL;
 
-typedef struct pilha_lst{
-	Lista *prim;
-} PilhaL;
+struct arv{
+	int info;
+	struct arv *esq;
+	struct arv *dir;
+};
+typedef struct arv Arv;
+
+Lista* lst_cria();
+Lista* lst_insere(Lista *l, int i);
+int lst_vazia(Lista *l);
+void lst_libera(Lista *l);
 
 FilaL *fila_cria_l();
 void fila_insere_l(FilaL *f, int vert);
@@ -20,8 +28,8 @@ int fila_retira_l(FilaL *f);
 int fila_vazia_l(FilaL *f);
 void fila_libera_l(FilaL *f);
 
-PilhaL *pilha_lst_cria();
-void pilha_lst_push(PilhaL *p, int v);
-int pilha_lst_pop(PilhaL *p);
-int pilha_lst_vazia(PilhaL *p);
-void pilha_lst_libera(PilhaL *p);
+Arv* arv_criavazia(void);
+Arv* arv_libera(Arv* a);
+int arv_vazia(Arv* a);
+Arv* arv_insere(Arv *a, int i, int *p, int ant);
+void arv_imprime(Arv* a, int fim);

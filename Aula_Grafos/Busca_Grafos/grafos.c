@@ -2,6 +2,35 @@
 #include <stdlib.h>
 #include "grafos.h"
 
+// Funcoes de lista
+Lista* lst_cria(){
+	return NULL;
+}
+
+Lista* lst_insere(Lista *l, int i){
+	Lista *novo=(Lista *)malloc(sizeof(Lista));
+	novo->vertice=i;
+	novo->prox=l;
+	return novo;
+}
+
+int lst_vazia(Lista *l){
+	if(l==NULL)
+		return 1;
+
+	else
+		return 0;
+}
+
+void lst_libera(Lista *l){
+	Lista *p=l;
+	while(p!=NULL){
+		Lista *t=p->prox;
+		free(p);
+		p=t;
+	}
+}
+
 // Funções de Fila para Busca em Largura
 FilaL *fila_cria_l(){
 	FilaL *f = (FilaL *) malloc(sizeof(FilaL));
@@ -47,44 +76,43 @@ void fila_libera_l(FilaL *f){
 	free(f);
 }
 
-// Funções de pilha para Busca em Profundidade
-PilhaL *pilha_lst_cria(){
-	PilhaL *p=(PilhaL *)malloc(sizeof(PilhaL));
-	p->prim=NULL;
-	return p;
-}
+// Funcoes de arvore para retorno da busca
+Arv* arv_criavazia(){return NULL;}
 
-void pilha_lst_push(PilhaL *p, int v){
-	Lista *l=(Lista *)malloc(sizeof(Lista));
-	l->vertice=v;
-	l->prox=p->prim;
-	p->prim=l;
-}
-
-int pilha_lst_pop(PilhaL *p){
-	Lista *l;
-	int v;
-	if(pilha_lst_vazia(p)){
-		printf("Pilha vazia\n");
-		exit(1);
+Arv* arv_libera(Arv* a){
+	if(!arv_libera(a)){
+		arv_libera(a->esq);
+		arv_libera(a->dir);
+		free(a);
 	}
-	l=p->prim;
-	v = l->vertice;
-	p->prim = l->prox;
-	free(l);
-	return v;
+	return NULL;
 }
 
-int pilha_lst_vazia(PilhaL *p){
-	return (p->prim==NULL);
+int arv_vazia(Arv* a){
+	return (a == NULL);	
 }
 
-void pilha_lst_libera(PilhaL *p){
-	Lista *l=p->prim;
-	while(l != NULL){
-		Lista *t = l->prox;
-		free(l);
-		l=t;
+Arv* arv_insere(Arv *a, int i, int *p, int ant) {
+    if ((arv_vazia(a)) && (p[i] == ant)) {
+        a = (Arv*) malloc(sizeof(Arv));
+        a->info = i;
+        a->esq = a->dir = NULL;   
+    }
+    else if ((p[i] != ant) && (arv_vazia(a))) {
+		return a;
+    } else {
+		ant = a->info;
+		a->esq = arv_insere(a->esq, i, p, ant);
+        a->dir = arv_insere(a->dir, i, p, ant);
+    } return a;
+}
+
+void arv_imprime(Arv* a, int fim){
+	if((!arv_vazia(a)) && (a->info != fim)){
+		printf("%d->",a->info);
+		arv_imprime(a->esq, fim);
+		arv_imprime(a->dir, fim);
+	} else {
+		printf("%d",a->info);
 	}
-	free(p);
 }
