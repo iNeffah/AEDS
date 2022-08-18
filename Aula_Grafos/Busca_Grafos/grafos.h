@@ -31,5 +31,6 @@ void fila_libera_l(FilaL *f);
 Arv* arv_criavazia(void);
 Arv* arv_libera(Arv* a);
 int arv_vazia(Arv* a);
-Arv* arv_insere(Arv *a, int i, int *p, int ant);
+Arv* arv_insere(Arv *a, int i, int p, int ant);
 void arv_imprime(Arv* a, int fim);
+int arv_pertence(Arv* a,int v);

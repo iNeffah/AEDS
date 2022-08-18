@@ -92,27 +92,44 @@ int arv_vazia(Arv* a){
 	return (a == NULL);	
 }
 
-Arv* arv_insere(Arv *a, int i, int *p, int ant) {
-    if ((arv_vazia(a)) && (p[i] == ant)) {
+Arv* arv_insere(Arv *a, int i, int p, int ant) {
+    if ((arv_vazia(a)) && (p == ant)) {
         a = (Arv*) malloc(sizeof(Arv));
         a->info = i;
         a->esq = a->dir = NULL;   
     }
-    else if ((p[i] != ant) && (arv_vazia(a))) {
+    else if ((p != ant) && (arv_vazia(a))) {
 		return a;
     } else {
 		ant = a->info;
-		a->esq = arv_insere(a->esq, i, p, ant);
-        a->dir = arv_insere(a->dir, i, p, ant);
+		if(a->esq == NULL || arv_pertence(a->esq, p))
+		{
+			a->esq = arv_insere(a->esq, i, p, ant);
+		}
+		else
+		{
+			a->dir = arv_insere(a->dir, i, p, ant);
+		}
     } return a;
 }
 
 void arv_imprime(Arv* a, int fim){
 	if((!arv_vazia(a)) && (a->info != fim)){
 		printf("%d->",a->info);
-		arv_imprime(a->esq, fim);
-		arv_imprime(a->dir, fim);
-	} else {
+		if(arv_pertence(a->esq, fim))
+		{
+			arv_imprime(a->esq, fim);
+		}
+		else
+		{
+			arv_imprime(a->dir, fim);
+		}
+	} else if (!arv_vazia(a)){
 		printf("%d",a->info);
 	}
+}
+
+int arv_pertence(Arv* a,int v){
+	if(arv_vazia(a))	return 0;
+	else return a->info == v || arv_pertence(a->esq,v) || arv_pertence(a->dir,v);
 }
